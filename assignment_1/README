@@ -1,0 +1,55 @@
+This program manipulates PGM files through modules (utilities) in a number of different ways.
+
+There are 6 main C files that transform the PGM files and a couple of C and H files
+to make the whole program more modular, accessible and easy to use.
+
+C files: (main, the programs are executed)
+All the main files call functions and test them for possible errors in the PGM file.
+
+Task 1 & 3: pgmEcho.c
+Reads in an ASCII/Binary PGM file and outputs (writes), either an ASCII/Binary PGM file.
+(ASCII to ASCII, Binary to Binary)
+
+Task 2 & 3: pgmComp.c
+Reads in an ASCII/Binary PGM file and compares whether they are logically identical.
+(ASCII to ASCII, Binary to Binary, ASCII to Binary)
+
+Task 3: pgma2b.c
+Reads in an ASCII PGM file and converts it to a Binary PGM file. 
+(ASCII to Binary)
+
+    pgmb2a.c
+Reads in a Binary PGM file and converts it to a Binary PGM file. 
+(Binary to ASCII)
+
+Task 4: pgmReduce.c
+Reads in an ASCII/Binary PGM file, an integer factor n and outputs (writes), 
+either an ASCII/Binary PGM file downsized by factor n times. 
+(ASCII to ASCII(downsized), Binary to Binary(downsized))
+
+Task 5: pgmTile.c
+Reads in an ASCII/Binary PGM file, an integer factor n and outputs (writes), 
+either an ASCII/Binary PGM file. The program divides the input file into nxn smaller images. 
+(ASCII to ASCII(nxn templates), Binary to Binary(nxn templates))
+
+Task 6: pgmAssemble.c
+Reads in an ASCII/Binary PGM file, an integer factor n and outputs (writes), 
+either an ASCII/Binary PGM file . The program assembles the input small images into a large image. 
+(ASCII to ASCII(assembles), Binary to Binary(assembles))
+
+C & H files: (modularity, error testing and checking, structure)
+
+pgmRead.c
+Reads in any ASCII/Binary PGM file and checks for errors.
+pgmWrite.c
+Writes out any ASCII/Binary PGM file and checks for errors.
+pgmImage.h
+Makes a standard Image struct to use in all the C files; declares functions 
+for all C main files; declares variables for storing the image.
+pgmImage.c
+Initialises all the variables in the Image struct (made in pgmImage.h) 
+to globally be used in all the main C files.
+pgmErrors.h
+Defines all the error codes.
+
+

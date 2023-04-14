@@ -1,0 +1,12 @@
+Test plan:
+
+A: For all the error messages and values we have a pgmErrors.h file.
+The C files pgmRead.c and pgmWrite.c will both check all the data entering/being outputted in the programming project; test it and only if it passes, the main functions will progress into compilation of the specified task.
+pgmRead.c makes all the checks regarding the header data and image data.
+Tests are made for: Bad Magic Number, Bad Dimensions, Bad Max Gray Value, Large Comment line, Bad Data, Malloc Allocation.
+pgmWrite.c only makes sure the output file works.
+
+B:Inside all the main C files(pgmEcho.c, pgmComp.c, pgma2b.c, pgmb2a.c, pgmReduce.c, pgmTile.c, pgmAssemble.c):
+All the main files check if the file exists, how many arguments it has, if it can read and write in a file. Then all the C files use a variable to check if throughout the program, from the Read functions, there are any exit errors. All files check if they are reading an ASCII/Binary file with the magic number being P2/P5.
+
+

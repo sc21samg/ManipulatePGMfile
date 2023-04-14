@@ -1,0 +1,46 @@
+Modules plan:
+
+A: Helpful C and H files for the main C programs
+
+1.pgmImage.c/.h
+1.a.pgmImage.h - Defines variables and a struct so it can be used globally in all the other C files.
+The H file defines some standard variables for clarity in the code.
+The file makes a struct with all the variables needed to make an image. This way we can use the values of an image in any file or dispose of it.
+The H file also defines all the functions inside pgmImage.c, pgmRead.c and pgmWrite.c so they can be used globally by any other C file.
+1.b.pgmImage.c - Initializes all the variables of the standard Image struct, made in pgmImage.h.
+
+2. pgmErrors.h - Defines the error names and respective error values. We make an error H file for easy accessibility and so it can be used globally in any C file.
+
+Info about Read & Write C files: All the variables are tested/checked before they are read in/wrote out and if there is an error the program outputs it and clears/closes all the other variables/files open. (More information about testing in testplan.txt)
+
+3.pgmRead.c - Reads an input filename(argv[1]) and has 3 int functions.
+3.a.int pgmReadHeader function: The function uses 3 parameters(image struct pointer, input file name and input file) to read the header data of any PGM file. The function reads in the following variables: magic number, comment line, image width, image height, image maxGray and allocates memory through malloc() for the image data that will be read in the next functions.
+
+3.b.int pgmReadBinaryData function: The function uses 3 parameters(image struct pointer, input file name and input file) to read the binary data of a PGM file. Through a 2d array, the function reads in each pixel of the image and stores it in imageData[row][column]. I read in each pixel of the image for easy accessibility and manipulation, we will need this for all the main C programs. To read a binary file I use the fread() function.
+
+3.c.int pgmReadAsciiData function: The function uses 3 parameters(image struct pointer, input file name and input file) to read the ASCII data of a PGM file. Through a 2d array, the function reads in each pixel of the image and stores it in imageData[row][column].  I read in each pixel of the image for easy accessibility and manipulation, we will need this for all the main C programs. To read an ASCII file I use the fscanf() function.
+
+4.pgmWrite.c - Write in an output filename(argv[2]) and has 3 int functions.
+4.a.int pgmWriteHeader function: The function uses 3 parameters(image struct pointer, output file name and output file) to write the header data of any PGM file. The function outputs the following variables: magic number, image width, image height and image maxGray.
+
+4.b.int pgmWriteBinaryData function: The function uses 3 parameters(image struct pointer, output file name and output file) to write the binary data of a PGM file. Through a 2d array, the function outputs each pixel of the image stored in imageData[row][column]. I output each pixel of the image for easy accessibility and manipulation, we will need this for all the main C programs. To  write a binary file I use the fwrite() function.
+
+4.c.int pgmWriteAsciiData function: The function uses 3 parameters(image struct pointer, output file name and output file) to write the ASCII data of an PGM file. Through a 2d array, the function outputs each pixel of the image stored in imageData[row][column].  I output each pixel of the image for easy accessibility and manipulation, we will need this for all the main C programs. To write an ASCII file I use the fprintf() function.
+
+B: All main C files
+
+1.pgmEcho.c - The main file uses the struct Image, opens the reading and writing files. Reads in the header, tests it and writes the header used by both an ASCII/Binary PGM file. Checks whether the PGM file is ASCII/Binary through the magic number P2/P5. If the file is ASCII it reads in the data, checks again for any errors and writes out the data through the write ASCII function. The same steps are applied for a Binary file.
+
+2.pgmComp.c - The main file uses the 2 Image structs, and logically compares them. It opens the 2 reading files. Reads in the header, tests it and checks whether the PGM file is ASCII/Binary through the magic number P2/P5 so it can read the data for the 1st file. Same process repeats for the 2nd image. The headers are compared. If they are IDENTICAL, than the data of the 2 images is compared by each pixel in a strcmp() function for ASCII to ASCII, Binary to Binary or ASCII to Binary.
+
+3.pgma2b.c - The main file uses the struct Image, reads an ASCII image and writes a Binary image. It checks if the image is an ASCII file, reads in the header, tests it and writes it in Binary, including changing the magic number from P2 to P5. Reads the ASCII data, checks again for any errors and writes out the data through the write Binary function. Outputs the message CONVERTED at the end.
+
+4.pgmb2a.c - The main file uses the struct Image, reads a Binary image and writes an ASCII image. It checks if the image is a Binary file, reads in the header, tests it and writes it in ASCII, including changing the magic number from P5 to P2. Reads in the Binary data, checks again for any errors and writes out the data through the write ASCII function. Outputs the message CONVERTED at the end.
+
+5.pgmReduce.c - The main file uses the struct Image, reads an ASCII/Binary image and writes an ASCII/Binary reduced image by n times. It reads in a factor n and checks it. We make another image struct in order to store the reduced image. We allocate memory for the reduced image with a malloc() within a 2D array. Checks if the image is an ASCII/Binary file and uses a 2d array to store in the reduced image 0 modulo factor n rows and columns. Outputs the message REDUCED at the end.
+
+6.pgmTile.c - The main file uses the struct Image, reads an ASCII/Binary image and outputs nxn smaller images. It reads in a factor n and checks it. We make other image structs in order to store all the small images. We allocate memory for the reduced images with a malloc() within a 2D array. Outputs the message TILED at the end.
+
+7.pgmAssemble.c - The main file uses the struct Image, reads an ASCII/Binary image and outputs a big image from smaller ones. It reads in a factor n and checks it. We make other image structs in order to store all the small and large images. We allocate memory for the small and large images with a malloc() within a 2D array.
+
+
